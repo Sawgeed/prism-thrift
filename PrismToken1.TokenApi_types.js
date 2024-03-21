@@ -3,23 +3,23 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
-if (typeof Int64 === 'undefined' && typeof require === 'function') {
-  var Int64 = require('node-int64');
-}
+"use strict";
+
+var thrift = require('thrift');
+var Thrift = thrift.Thrift;
+var Q = thrift.Q;
+var Int64 = require('node-int64');
 
 
-if (typeof PrismPrismToken1 === 'undefined') {
-  PrismPrismToken1 = {};
-}
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports.PrismPrismToken1 = PrismPrismToken1;
-}
-PrismPrismToken1.TokenIssueFlags = {
+var ttypes = module.exports = {};
+ttypes.TokenIssueFlags = {
   'EXTERNAL_CLOCK' : 1,
   'TID_ADJUST_BDT' : 2,
   'SPECIAL_RESERVED' : 4
 };
-PrismPrismToken1.ApiException = function(args) {
+var ApiException = module.exports.ApiException = function(args) {
+  Thrift.TException.call(this, "ApiException");
+  this.name = "ApiException";
   this.eCode = null;
   this.eMsgEn = null;
   if (args) {
@@ -35,9 +35,9 @@ PrismPrismToken1.ApiException = function(args) {
     }
   }
 };
-Thrift.inherits(PrismPrismToken1.ApiException, Thrift.TException);
-PrismPrismToken1.ApiException.prototype.name = 'ApiException';
-PrismPrismToken1.ApiException.prototype.read = function(input) {
+Thrift.inherits(ApiException, Thrift.TException);
+ApiException.prototype.name = 'ApiException';
+ApiException.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -49,14 +49,14 @@ PrismPrismToken1.ApiException.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.eCode = input.readString().value;
+        this.eCode = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.eMsgEn = input.readString().value;
+        this.eMsgEn = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -70,7 +70,7 @@ PrismPrismToken1.ApiException.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.ApiException.prototype.write = function(output) {
+ApiException.prototype.write = function(output) {
   output.writeStructBegin('ApiException');
   if (this.eCode !== null && this.eCode !== undefined) {
     output.writeFieldBegin('eCode', Thrift.Type.STRING, 1);
@@ -87,7 +87,7 @@ PrismPrismToken1.ApiException.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.SessionOptions = function(args) {
+var SessionOptions = module.exports.SessionOptions = function(args) {
   this.version = '1.1';
   this.culture = 'en';
   if (args) {
@@ -101,8 +101,8 @@ PrismPrismToken1.SessionOptions = function(args) {
     }
   }
 };
-PrismPrismToken1.SessionOptions.prototype = {};
-PrismPrismToken1.SessionOptions.prototype.read = function(input) {
+SessionOptions.prototype = {};
+SessionOptions.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -114,14 +114,14 @@ PrismPrismToken1.SessionOptions.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.version = input.readString().value;
+        this.version = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 10:
       if (ftype == Thrift.Type.STRING) {
-        this.culture = input.readString().value;
+        this.culture = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -135,7 +135,7 @@ PrismPrismToken1.SessionOptions.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.SessionOptions.prototype.write = function(output) {
+SessionOptions.prototype.write = function(output) {
   output.writeStructBegin('SessionOptions');
   if (this.version !== null && this.version !== undefined) {
     output.writeFieldBegin('version', Thrift.Type.STRING, 1);
@@ -152,7 +152,7 @@ PrismPrismToken1.SessionOptions.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.SignInResult = function(args) {
+var SignInResult = module.exports.SignInResult = function(args) {
   this.accessToken = null;
   if (args) {
     if (args.accessToken !== undefined && args.accessToken !== null) {
@@ -162,8 +162,8 @@ PrismPrismToken1.SignInResult = function(args) {
     }
   }
 };
-PrismPrismToken1.SignInResult.prototype = {};
-PrismPrismToken1.SignInResult.prototype.read = function(input) {
+SignInResult.prototype = {};
+SignInResult.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -175,7 +175,7 @@ PrismPrismToken1.SignInResult.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -192,7 +192,7 @@ PrismPrismToken1.SignInResult.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.SignInResult.prototype.write = function(output) {
+SignInResult.prototype.write = function(output) {
   output.writeStructBegin('SignInResult');
   if (this.accessToken !== null && this.accessToken !== undefined) {
     output.writeFieldBegin('accessToken', Thrift.Type.STRING, 1);
@@ -204,7 +204,7 @@ PrismPrismToken1.SignInResult.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.Alert = function(args) {
+var Alert = module.exports.Alert = function(args) {
   this.eCode = null;
   this.eMsgEn = null;
   if (args) {
@@ -220,8 +220,8 @@ PrismPrismToken1.Alert = function(args) {
     }
   }
 };
-PrismPrismToken1.Alert.prototype = {};
-PrismPrismToken1.Alert.prototype.read = function(input) {
+Alert.prototype = {};
+Alert.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -233,14 +233,14 @@ PrismPrismToken1.Alert.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.eCode = input.readString().value;
+        this.eCode = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.eMsgEn = input.readString().value;
+        this.eMsgEn = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -254,7 +254,7 @@ PrismPrismToken1.Alert.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.Alert.prototype.write = function(output) {
+Alert.prototype.write = function(output) {
   output.writeStructBegin('Alert');
   if (this.eCode !== null && this.eCode !== undefined) {
     output.writeFieldBegin('eCode', Thrift.Type.STRING, 1);
@@ -271,7 +271,7 @@ PrismPrismToken1.Alert.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.NodeStatus = function(args) {
+var NodeStatus = module.exports.NodeStatus = function(args) {
   this.info = null;
   this.alerts = null;
   if (args) {
@@ -281,14 +281,14 @@ PrismPrismToken1.NodeStatus = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field info is unset!');
     }
     if (args.alerts !== undefined && args.alerts !== null) {
-      this.alerts = Thrift.copyList(args.alerts, [PrismPrismToken1.Alert]);
+      this.alerts = Thrift.copyList(args.alerts, [ttypes.Alert]);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field alerts is unset!');
     }
   }
 };
-PrismPrismToken1.NodeStatus.prototype = {};
-PrismPrismToken1.NodeStatus.prototype.read = function(input) {
+NodeStatus.prototype = {};
+NodeStatus.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -304,15 +304,10 @@ PrismPrismToken1.NodeStatus.prototype.read = function(input) {
         var _rtmp31 = input.readMapBegin();
         var _size0 = _rtmp31.size || 0;
         for (var _i2 = 0; _i2 < _size0; ++_i2) {
-          if (_i2 > 0 ) {
-            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
-              input.rstack.pop();
-            }
-          }
           var key3 = null;
           var val4 = null;
-          key3 = input.readString().value;
-          val4 = input.readString().value;
+          key3 = input.readString();
+          val4 = input.readString();
           this.info[key3] = val4;
         }
         input.readMapEnd();
@@ -327,7 +322,7 @@ PrismPrismToken1.NodeStatus.prototype.read = function(input) {
         var _size5 = _rtmp36.size || 0;
         for (var _i7 = 0; _i7 < _size5; ++_i7) {
           var elem8 = null;
-          elem8 = new PrismPrismToken1.Alert();
+          elem8 = new ttypes.Alert();
           elem8.read(input);
           this.alerts.push(elem8);
         }
@@ -345,7 +340,7 @@ PrismPrismToken1.NodeStatus.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.NodeStatus.prototype.write = function(output) {
+NodeStatus.prototype.write = function(output) {
   output.writeStructBegin('NodeStatus');
   if (this.info !== null && this.info !== undefined) {
     output.writeFieldBegin('info', Thrift.Type.MAP, 1);
@@ -377,7 +372,7 @@ PrismPrismToken1.NodeStatus.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.MeterConfigAmendment = function(args) {
+var MeterConfigAmendment = module.exports.MeterConfigAmendment = function(args) {
   this.toSgc = null;
   this.toKrn = null;
   this.toTi = null;
@@ -399,8 +394,8 @@ PrismPrismToken1.MeterConfigAmendment = function(args) {
     }
   }
 };
-PrismPrismToken1.MeterConfigAmendment.prototype = {};
-PrismPrismToken1.MeterConfigAmendment.prototype.read = function(input) {
+MeterConfigAmendment.prototype = {};
+MeterConfigAmendment.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -412,21 +407,21 @@ PrismPrismToken1.MeterConfigAmendment.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.I32) {
-        this.toSgc = input.readI32().value;
+        this.toSgc = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.I16) {
-        this.toKrn = input.readI16().value;
+        this.toKrn = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.I16) {
-        this.toTi = input.readI16().value;
+        this.toTi = input.readI16();
       } else {
         input.skip(ftype);
       }
@@ -440,7 +435,7 @@ PrismPrismToken1.MeterConfigAmendment.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.MeterConfigAmendment.prototype.write = function(output) {
+MeterConfigAmendment.prototype.write = function(output) {
   output.writeStructBegin('MeterConfigAmendment');
   if (this.toSgc !== null && this.toSgc !== undefined) {
     output.writeFieldBegin('toSgc', Thrift.Type.I32, 1);
@@ -462,7 +457,7 @@ PrismPrismToken1.MeterConfigAmendment.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.MeterConfigIn = function(args) {
+var MeterConfigIn = module.exports.MeterConfigIn = function(args) {
   this.drn = null;
   this.ea = null;
   this.tct = null;
@@ -507,7 +502,7 @@ PrismPrismToken1.MeterConfigIn = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field ti is unset!');
     }
     if (args.newConfig !== undefined && args.newConfig !== null) {
-      this.newConfig = new PrismPrismToken1.MeterConfigAmendment(args.newConfig);
+      this.newConfig = new ttypes.MeterConfigAmendment(args.newConfig);
     }
     if (args.allowKrnUpdate !== undefined && args.allowKrnUpdate !== null) {
       this.allowKrnUpdate = args.allowKrnUpdate;
@@ -528,8 +523,8 @@ PrismPrismToken1.MeterConfigIn = function(args) {
     }
   }
 };
-PrismPrismToken1.MeterConfigIn.prototype = {};
-PrismPrismToken1.MeterConfigIn.prototype.read = function(input) {
+MeterConfigIn.prototype = {};
+MeterConfigIn.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -541,49 +536,49 @@ PrismPrismToken1.MeterConfigIn.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.drn = input.readString().value;
+        this.drn = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.I16) {
-        this.ea = input.readI16().value;
+        this.ea = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.I16) {
-        this.tct = input.readI16().value;
+        this.tct = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 10:
       if (ftype == Thrift.Type.I32) {
-        this.sgc = input.readI32().value;
+        this.sgc = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 11:
       if (ftype == Thrift.Type.I16) {
-        this.krn = input.readI16().value;
+        this.krn = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 12:
       if (ftype == Thrift.Type.I16) {
-        this.ti = input.readI16().value;
+        this.ti = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 20:
       if (ftype == Thrift.Type.STRUCT) {
-        this.newConfig = new PrismPrismToken1.MeterConfigAmendment();
+        this.newConfig = new ttypes.MeterConfigAmendment();
         this.newConfig.read(input);
       } else {
         input.skip(ftype);
@@ -591,35 +586,35 @@ PrismPrismToken1.MeterConfigIn.prototype.read = function(input) {
       break;
       case 21:
       if (ftype == Thrift.Type.BOOL) {
-        this.allowKrnUpdate = input.readBool().value;
+        this.allowKrnUpdate = input.readBool();
       } else {
         input.skip(ftype);
       }
       break;
       case 30:
       if (ftype == Thrift.Type.I16) {
-        this.ken = input.readI16().value;
+        this.ken = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 31:
       if (ftype == Thrift.Type.STRING) {
-        this.doe = input.readString().value;
+        this.doe = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 32:
       if (ftype == Thrift.Type.BOOL) {
-        this.allow3Kct = input.readBool().value;
+        this.allow3Kct = input.readBool();
       } else {
         input.skip(ftype);
       }
       break;
       case 33:
       if (ftype == Thrift.Type.BOOL) {
-        this.allowKenUpdate = input.readBool().value;
+        this.allowKenUpdate = input.readBool();
       } else {
         input.skip(ftype);
       }
@@ -633,7 +628,7 @@ PrismPrismToken1.MeterConfigIn.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.MeterConfigIn.prototype.write = function(output) {
+MeterConfigIn.prototype.write = function(output) {
   output.writeStructBegin('MeterConfigIn');
   if (this.drn !== null && this.drn !== undefined) {
     output.writeFieldBegin('drn', Thrift.Type.STRING, 1);
@@ -700,7 +695,7 @@ PrismPrismToken1.MeterConfigIn.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.MeterConfigAdvice = function(args) {
+var MeterConfigAdvice = module.exports.MeterConfigAdvice = function(args) {
   this.toSgc = null;
   this.toKrn = null;
   this.toTi = null;
@@ -752,8 +747,8 @@ PrismPrismToken1.MeterConfigAdvice = function(args) {
     }
   }
 };
-PrismPrismToken1.MeterConfigAdvice.prototype = {};
-PrismPrismToken1.MeterConfigAdvice.prototype.read = function(input) {
+MeterConfigAdvice.prototype = {};
+MeterConfigAdvice.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -765,56 +760,56 @@ PrismPrismToken1.MeterConfigAdvice.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.I32) {
-        this.toSgc = input.readI32().value;
+        this.toSgc = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.I16) {
-        this.toKrn = input.readI16().value;
+        this.toKrn = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.I16) {
-        this.toTi = input.readI16().value;
+        this.toTi = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 4:
       if (ftype == Thrift.Type.I16) {
-        this.toKen = input.readI16().value;
+        this.toKen = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 10:
       if (ftype == Thrift.Type.STRING) {
-        this.idRecord = input.readString().value;
+        this.idRecord = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 11:
       if (ftype == Thrift.Type.STRING) {
-        this.record2 = input.readString().value;
+        this.record2 = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 20:
       if (ftype == Thrift.Type.BOOL) {
-        this.rollover = input.readBool().value;
+        this.rollover = input.readBool();
       } else {
         input.skip(ftype);
       }
       break;
       case 21:
       if (ftype == Thrift.Type.STRING) {
-        this.toVkKcv = input.readString().value;
+        this.toVkKcv = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -828,7 +823,7 @@ PrismPrismToken1.MeterConfigAdvice.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.MeterConfigAdvice.prototype.write = function(output) {
+MeterConfigAdvice.prototype.write = function(output) {
   output.writeStructBegin('MeterConfigAdvice');
   if (this.toSgc !== null && this.toSgc !== undefined) {
     output.writeFieldBegin('toSgc', Thrift.Type.I32, 1);
@@ -875,7 +870,7 @@ PrismPrismToken1.MeterConfigAdvice.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.Token = function(args) {
+var Token = module.exports.Token = function(args) {
   this.drn = null;
   this.pan = null;
   this.ea = null;
@@ -959,7 +954,7 @@ PrismPrismToken1.Token = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field isReservedTid is unset!');
     }
     if (args.newConfig !== undefined && args.newConfig !== null) {
-      this.newConfig = new PrismPrismToken1.MeterConfigAdvice(args.newConfig);
+      this.newConfig = new ttypes.MeterConfigAdvice(args.newConfig);
     }
     if (args.description !== undefined && args.description !== null) {
       this.description = args.description;
@@ -1003,8 +998,8 @@ PrismPrismToken1.Token = function(args) {
     }
   }
 };
-PrismPrismToken1.Token.prototype = {};
-PrismPrismToken1.Token.prototype.read = function(input) {
+Token.prototype = {};
+Token.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1016,91 +1011,91 @@ PrismPrismToken1.Token.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.drn = input.readString().value;
+        this.drn = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.pan = input.readString().value;
+        this.pan = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.I16) {
-        this.ea = input.readI16().value;
+        this.ea = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 4:
       if (ftype == Thrift.Type.I16) {
-        this.tct = input.readI16().value;
+        this.tct = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.I32) {
-        this.sgc = input.readI32().value;
+        this.sgc = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 6:
       if (ftype == Thrift.Type.I16) {
-        this.krn = input.readI16().value;
+        this.krn = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 7:
       if (ftype == Thrift.Type.I16) {
-        this.ti = input.readI16().value;
+        this.ti = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 10:
       if (ftype == Thrift.Type.I16) {
-        this.tokenClass = input.readI16().value;
+        this.tokenClass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 11:
       if (ftype == Thrift.Type.I16) {
-        this.subclass = input.readI16().value;
+        this.subclass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 12:
       if (ftype == Thrift.Type.I32) {
-        this.tid = input.readI32().value;
+        this.tid = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 13:
       if (ftype == Thrift.Type.DOUBLE) {
-        this.transferAmount = input.readDouble().value;
+        this.transferAmount = input.readDouble();
       } else {
         input.skip(ftype);
       }
       break;
       case 14:
       if (ftype == Thrift.Type.BOOL) {
-        this.isReservedTid = input.readBool().value;
+        this.isReservedTid = input.readBool();
       } else {
         input.skip(ftype);
       }
       break;
       case 15:
       if (ftype == Thrift.Type.STRUCT) {
-        this.newConfig = new PrismPrismToken1.MeterConfigAdvice();
+        this.newConfig = new ttypes.MeterConfigAdvice();
         this.newConfig.read(input);
       } else {
         input.skip(ftype);
@@ -1108,56 +1103,56 @@ PrismPrismToken1.Token.prototype.read = function(input) {
       break;
       case 20:
       if (ftype == Thrift.Type.STRING) {
-        this.description = input.readString().value;
+        this.description = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 21:
       if (ftype == Thrift.Type.STRING) {
-        this.stsUnitName = input.readString().value;
+        this.stsUnitName = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 22:
       if (ftype == Thrift.Type.STRING) {
-        this.scaledAmount = input.readString().value;
+        this.scaledAmount = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 23:
       if (ftype == Thrift.Type.STRING) {
-        this.scaledUnitName = input.readString().value;
+        this.scaledUnitName = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 30:
       if (ftype == Thrift.Type.STRING) {
-        this.tokenDec = input.readString().value;
+        this.tokenDec = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 31:
       if (ftype == Thrift.Type.STRING) {
-        this.tokenHex = input.readString().value;
+        this.tokenHex = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 40:
       if (ftype == Thrift.Type.STRING) {
-        this.idSm = input.readString().value;
+        this.idSm = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 41:
       if (ftype == Thrift.Type.STRING) {
-        this.vkKcv = input.readString().value;
+        this.vkKcv = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -1171,7 +1166,7 @@ PrismPrismToken1.Token.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.Token.prototype.write = function(output) {
+Token.prototype.write = function(output) {
   output.writeStructBegin('Token');
   if (this.drn !== null && this.drn !== undefined) {
     output.writeFieldBegin('drn', Thrift.Type.STRING, 1);
@@ -1283,7 +1278,7 @@ PrismPrismToken1.Token.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.MeterTestToken = function(args) {
+var MeterTestToken = module.exports.MeterTestToken = function(args) {
   this.drn = null;
   this.pan = null;
   this.tokenClass = null;
@@ -1341,8 +1336,8 @@ PrismPrismToken1.MeterTestToken = function(args) {
     }
   }
 };
-PrismPrismToken1.MeterTestToken.prototype = {};
-PrismPrismToken1.MeterTestToken.prototype.read = function(input) {
+MeterTestToken.prototype = {};
+MeterTestToken.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1354,63 +1349,63 @@ PrismPrismToken1.MeterTestToken.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.drn = input.readString().value;
+        this.drn = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.pan = input.readString().value;
+        this.pan = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 10:
       if (ftype == Thrift.Type.I16) {
-        this.tokenClass = input.readI16().value;
+        this.tokenClass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 11:
       if (ftype == Thrift.Type.I16) {
-        this.subclass = input.readI16().value;
+        this.subclass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 12:
       if (ftype == Thrift.Type.I64) {
-        this.control = input.readI64().value;
+        this.control = input.readI64();
       } else {
         input.skip(ftype);
       }
       break;
       case 13:
       if (ftype == Thrift.Type.I16) {
-        this.mfrcode = input.readI16().value;
+        this.mfrcode = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 20:
       if (ftype == Thrift.Type.STRING) {
-        this.description = input.readString().value;
+        this.description = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 30:
       if (ftype == Thrift.Type.STRING) {
-        this.tokenDec = input.readString().value;
+        this.tokenDec = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 31:
       if (ftype == Thrift.Type.STRING) {
-        this.tokenHex = input.readString().value;
+        this.tokenHex = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -1424,7 +1419,7 @@ PrismPrismToken1.MeterTestToken.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.MeterTestToken.prototype.write = function(output) {
+MeterTestToken.prototype.write = function(output) {
   output.writeStructBegin('MeterTestToken');
   if (this.drn !== null && this.drn !== undefined) {
     output.writeFieldBegin('drn', Thrift.Type.STRING, 1);
@@ -1476,7 +1471,7 @@ PrismPrismToken1.MeterTestToken.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.VerifyResult = function(args) {
+var VerifyResult = module.exports.VerifyResult = function(args) {
   this.validationResult = null;
   this.token = null;
   this.meterTestToken = null;
@@ -1487,15 +1482,15 @@ PrismPrismToken1.VerifyResult = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field validationResult is unset!');
     }
     if (args.token !== undefined && args.token !== null) {
-      this.token = new PrismPrismToken1.Token(args.token);
+      this.token = new ttypes.Token(args.token);
     }
     if (args.meterTestToken !== undefined && args.meterTestToken !== null) {
-      this.meterTestToken = new PrismPrismToken1.MeterTestToken(args.meterTestToken);
+      this.meterTestToken = new ttypes.MeterTestToken(args.meterTestToken);
     }
   }
 };
-PrismPrismToken1.VerifyResult.prototype = {};
-PrismPrismToken1.VerifyResult.prototype.read = function(input) {
+VerifyResult.prototype = {};
+VerifyResult.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1507,14 +1502,14 @@ PrismPrismToken1.VerifyResult.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.validationResult = input.readString().value;
+        this.validationResult = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRUCT) {
-        this.token = new PrismPrismToken1.Token();
+        this.token = new ttypes.Token();
         this.token.read(input);
       } else {
         input.skip(ftype);
@@ -1522,7 +1517,7 @@ PrismPrismToken1.VerifyResult.prototype.read = function(input) {
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterTestToken = new PrismPrismToken1.MeterTestToken();
+        this.meterTestToken = new ttypes.MeterTestToken();
         this.meterTestToken.read(input);
       } else {
         input.skip(ftype);
@@ -1537,7 +1532,7 @@ PrismPrismToken1.VerifyResult.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.VerifyResult.prototype.write = function(output) {
+VerifyResult.prototype.write = function(output) {
   output.writeStructBegin('VerifyResult');
   if (this.validationResult !== null && this.validationResult !== undefined) {
     output.writeFieldBegin('validationResult', Thrift.Type.STRING, 1);
@@ -1559,10 +1554,10 @@ PrismPrismToken1.VerifyResult.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.ApiVersion = '1.1';
-PrismPrismToken1.PrintableAsciiRe = '^[\\x20-\\x7e]*$';
-PrismPrismToken1.IdentMatchRe = '^[a-zA-Z0-9][a-zA-Z0-9_\\-\\.,]{0,39}$';
-PrismPrismToken1.ApiErrors = {
+ttypes.ApiVersion = '1.1';
+ttypes.PrintableAsciiRe = '^[\\x20-\\x7e]*$';
+ttypes.IdentMatchRe = '^[a-zA-Z0-9][a-zA-Z0-9_\\-\\.,]{0,39}$';
+ttypes.ApiErrors = {
   'EAuthentication.Permission' : 'Access denied: accessToken does not have permission \'{0}\'',
   'EAuthentication.Token' : 'Authentication failed (bad accessToken: {0})',
   'ECacheMiss' : 'The requested entry was not found in the cache',
