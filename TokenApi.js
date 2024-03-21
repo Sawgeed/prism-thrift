@@ -3,14 +3,18 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
-if (typeof Int64 === 'undefined' && typeof require === 'function') {
-  var Int64 = require('node-int64');
-}
+"use strict";
+
+var thrift = require('thrift');
+var Thrift = thrift.Thrift;
+var Q = thrift.Q;
+var Int64 = require('node-int64');
 
 
+var ttypes = require('./PrismToken1.TokenApi_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
-PrismPrismToken1.TokenApi_ping_args = function(args) {
+var TokenApi_ping_args = function(args) {
   this.sleepMs = null;
   this.echo = null;
   if (args) {
@@ -26,8 +30,8 @@ PrismPrismToken1.TokenApi_ping_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_ping_args.prototype = {};
-PrismPrismToken1.TokenApi_ping_args.prototype.read = function(input) {
+TokenApi_ping_args.prototype = {};
+TokenApi_ping_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -39,14 +43,14 @@ PrismPrismToken1.TokenApi_ping_args.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.I32) {
-        this.sleepMs = input.readI32().value;
+        this.sleepMs = input.readI32();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.echo = input.readString().value;
+        this.echo = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -60,7 +64,7 @@ PrismPrismToken1.TokenApi_ping_args.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_ping_args.prototype.write = function(output) {
+TokenApi_ping_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_ping_args');
   if (this.sleepMs !== null && this.sleepMs !== undefined) {
     output.writeFieldBegin('sleepMs', Thrift.Type.I32, 1);
@@ -77,10 +81,10 @@ PrismPrismToken1.TokenApi_ping_args.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.TokenApi_ping_result = function(args) {
+var TokenApi_ping_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
@@ -93,8 +97,8 @@ PrismPrismToken1.TokenApi_ping_result = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_ping_result.prototype = {};
-PrismPrismToken1.TokenApi_ping_result.prototype.read = function(input) {
+TokenApi_ping_result.prototype = {};
+TokenApi_ping_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -106,14 +110,14 @@ PrismPrismToken1.TokenApi_ping_result.prototype.read = function(input) {
     switch (fid) {
       case 0:
       if (ftype == Thrift.Type.STRING) {
-        this.success = input.readString().value;
+        this.success = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -128,7 +132,7 @@ PrismPrismToken1.TokenApi_ping_result.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_ping_result.prototype.write = function(output) {
+TokenApi_ping_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_ping_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRING, 0);
@@ -145,7 +149,7 @@ PrismPrismToken1.TokenApi_ping_result.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.TokenApi_signInWithPassword_args = function(args) {
+var TokenApi_signInWithPassword_args = function(args) {
   this.messageId = null;
   this.realm = null;
   this.username = null;
@@ -173,14 +177,14 @@ PrismPrismToken1.TokenApi_signInWithPassword_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field password is unset!');
     }
     if (args.sessionOpts !== undefined && args.sessionOpts !== null) {
-      this.sessionOpts = new PrismPrismToken1.SessionOptions(args.sessionOpts);
+      this.sessionOpts = new ttypes.SessionOptions(args.sessionOpts);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field sessionOpts is unset!');
     }
   }
 };
-PrismPrismToken1.TokenApi_signInWithPassword_args.prototype = {};
-PrismPrismToken1.TokenApi_signInWithPassword_args.prototype.read = function(input) {
+TokenApi_signInWithPassword_args.prototype = {};
+TokenApi_signInWithPassword_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -192,35 +196,35 @@ PrismPrismToken1.TokenApi_signInWithPassword_args.prototype.read = function(inpu
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.realm = input.readString().value;
+        this.realm = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.username = input.readString().value;
+        this.username = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 4:
       if (ftype == Thrift.Type.STRING) {
-        this.password = input.readString().value;
+        this.password = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.STRUCT) {
-        this.sessionOpts = new PrismPrismToken1.SessionOptions();
+        this.sessionOpts = new ttypes.SessionOptions();
         this.sessionOpts.read(input);
       } else {
         input.skip(ftype);
@@ -235,7 +239,7 @@ PrismPrismToken1.TokenApi_signInWithPassword_args.prototype.read = function(inpu
   return;
 };
 
-PrismPrismToken1.TokenApi_signInWithPassword_args.prototype.write = function(output) {
+TokenApi_signInWithPassword_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_signInWithPassword_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -267,24 +271,24 @@ PrismPrismToken1.TokenApi_signInWithPassword_args.prototype.write = function(out
   return;
 };
 
-PrismPrismToken1.TokenApi_signInWithPassword_result = function(args) {
+var TokenApi_signInWithPassword_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new PrismPrismToken1.SignInResult(args.success);
+      this.success = new ttypes.SignInResult(args.success);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_signInWithPassword_result.prototype = {};
-PrismPrismToken1.TokenApi_signInWithPassword_result.prototype.read = function(input) {
+TokenApi_signInWithPassword_result.prototype = {};
+TokenApi_signInWithPassword_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -296,7 +300,7 @@ PrismPrismToken1.TokenApi_signInWithPassword_result.prototype.read = function(in
     switch (fid) {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new PrismPrismToken1.SignInResult();
+        this.success = new ttypes.SignInResult();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -304,7 +308,7 @@ PrismPrismToken1.TokenApi_signInWithPassword_result.prototype.read = function(in
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -319,7 +323,7 @@ PrismPrismToken1.TokenApi_signInWithPassword_result.prototype.read = function(in
   return;
 };
 
-PrismPrismToken1.TokenApi_signInWithPassword_result.prototype.write = function(output) {
+TokenApi_signInWithPassword_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_signInWithPassword_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
@@ -336,7 +340,7 @@ PrismPrismToken1.TokenApi_signInWithPassword_result.prototype.write = function(o
   return;
 };
 
-PrismPrismToken1.TokenApi_getStatus_args = function(args) {
+var TokenApi_getStatus_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   if (args) {
@@ -352,8 +356,8 @@ PrismPrismToken1.TokenApi_getStatus_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_getStatus_args.prototype = {};
-PrismPrismToken1.TokenApi_getStatus_args.prototype.read = function(input) {
+TokenApi_getStatus_args.prototype = {};
+TokenApi_getStatus_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -365,14 +369,14 @@ PrismPrismToken1.TokenApi_getStatus_args.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -386,7 +390,7 @@ PrismPrismToken1.TokenApi_getStatus_args.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_getStatus_args.prototype.write = function(output) {
+TokenApi_getStatus_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_getStatus_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -403,24 +407,24 @@ PrismPrismToken1.TokenApi_getStatus_args.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.TokenApi_getStatus_result = function(args) {
+var TokenApi_getStatus_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.NodeStatus]);
+      this.success = Thrift.copyList(args.success, [ttypes.NodeStatus]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_getStatus_result.prototype = {};
-PrismPrismToken1.TokenApi_getStatus_result.prototype.read = function(input) {
+TokenApi_getStatus_result.prototype = {};
+TokenApi_getStatus_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -437,7 +441,7 @@ PrismPrismToken1.TokenApi_getStatus_result.prototype.read = function(input) {
         var _size12 = _rtmp313.size || 0;
         for (var _i14 = 0; _i14 < _size12; ++_i14) {
           var elem15 = null;
-          elem15 = new PrismPrismToken1.NodeStatus();
+          elem15 = new ttypes.NodeStatus();
           elem15.read(input);
           this.success.push(elem15);
         }
@@ -448,7 +452,7 @@ PrismPrismToken1.TokenApi_getStatus_result.prototype.read = function(input) {
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -463,7 +467,7 @@ PrismPrismToken1.TokenApi_getStatus_result.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_getStatus_result.prototype.write = function(output) {
+TokenApi_getStatus_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_getStatus_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -487,7 +491,7 @@ PrismPrismToken1.TokenApi_getStatus_result.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.TokenApi_parseIdRecord_args = function(args) {
+var TokenApi_parseIdRecord_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.idRecord = null;
@@ -509,8 +513,8 @@ PrismPrismToken1.TokenApi_parseIdRecord_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_parseIdRecord_args.prototype = {};
-PrismPrismToken1.TokenApi_parseIdRecord_args.prototype.read = function(input) {
+TokenApi_parseIdRecord_args.prototype = {};
+TokenApi_parseIdRecord_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -522,21 +526,21 @@ PrismPrismToken1.TokenApi_parseIdRecord_args.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.idRecord = input.readString().value;
+        this.idRecord = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -550,7 +554,7 @@ PrismPrismToken1.TokenApi_parseIdRecord_args.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_parseIdRecord_args.prototype.write = function(output) {
+TokenApi_parseIdRecord_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_parseIdRecord_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -572,24 +576,24 @@ PrismPrismToken1.TokenApi_parseIdRecord_args.prototype.write = function(output) 
   return;
 };
 
-PrismPrismToken1.TokenApi_parseIdRecord_result = function(args) {
+var TokenApi_parseIdRecord_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new PrismPrismToken1.MeterConfigIn(args.success);
+      this.success = new ttypes.MeterConfigIn(args.success);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_parseIdRecord_result.prototype = {};
-PrismPrismToken1.TokenApi_parseIdRecord_result.prototype.read = function(input) {
+TokenApi_parseIdRecord_result.prototype = {};
+TokenApi_parseIdRecord_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -601,7 +605,7 @@ PrismPrismToken1.TokenApi_parseIdRecord_result.prototype.read = function(input) 
     switch (fid) {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new PrismPrismToken1.MeterConfigIn();
+        this.success = new ttypes.MeterConfigIn();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -609,7 +613,7 @@ PrismPrismToken1.TokenApi_parseIdRecord_result.prototype.read = function(input) 
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -624,7 +628,7 @@ PrismPrismToken1.TokenApi_parseIdRecord_result.prototype.read = function(input) 
   return;
 };
 
-PrismPrismToken1.TokenApi_parseIdRecord_result.prototype.write = function(output) {
+TokenApi_parseIdRecord_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_parseIdRecord_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
@@ -641,7 +645,7 @@ PrismPrismToken1.TokenApi_parseIdRecord_result.prototype.write = function(output
   return;
 };
 
-PrismPrismToken1.TokenApi_loadTransactionLicense_args = function(args) {
+var TokenApi_loadTransactionLicense_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.licenseText = null;
@@ -663,8 +667,8 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_loadTransactionLicense_args.prototype = {};
-PrismPrismToken1.TokenApi_loadTransactionLicense_args.prototype.read = function(input) {
+TokenApi_loadTransactionLicense_args.prototype = {};
+TokenApi_loadTransactionLicense_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -676,21 +680,21 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_args.prototype.read = function(
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.licenseText = input.readString().value;
+        this.licenseText = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -704,7 +708,7 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_args.prototype.read = function(
   return;
 };
 
-PrismPrismToken1.TokenApi_loadTransactionLicense_args.prototype.write = function(output) {
+TokenApi_loadTransactionLicense_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_loadTransactionLicense_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -726,10 +730,10 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_args.prototype.write = function
   return;
 };
 
-PrismPrismToken1.TokenApi_loadTransactionLicense_result = function(args) {
+var TokenApi_loadTransactionLicense_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
@@ -742,8 +746,8 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_result = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_loadTransactionLicense_result.prototype = {};
-PrismPrismToken1.TokenApi_loadTransactionLicense_result.prototype.read = function(input) {
+TokenApi_loadTransactionLicense_result.prototype = {};
+TokenApi_loadTransactionLicense_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -755,14 +759,14 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_result.prototype.read = functio
     switch (fid) {
       case 0:
       if (ftype == Thrift.Type.BOOL) {
-        this.success = input.readBool().value;
+        this.success = input.readBool();
       } else {
         input.skip(ftype);
       }
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -777,7 +781,7 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_result.prototype.read = functio
   return;
 };
 
-PrismPrismToken1.TokenApi_loadTransactionLicense_result.prototype.write = function(output) {
+TokenApi_loadTransactionLicense_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_loadTransactionLicense_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.BOOL, 0);
@@ -794,7 +798,7 @@ PrismPrismToken1.TokenApi_loadTransactionLicense_result.prototype.write = functi
   return;
 };
 
-PrismPrismToken1.TokenApi_issueCreditToken_args = function(args) {
+var TokenApi_issueCreditToken_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.meterConfig = null;
@@ -814,7 +818,7 @@ PrismPrismToken1.TokenApi_issueCreditToken_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field accessToken is unset!');
     }
     if (args.meterConfig !== undefined && args.meterConfig !== null) {
-      this.meterConfig = new PrismPrismToken1.MeterConfigIn(args.meterConfig);
+      this.meterConfig = new ttypes.MeterConfigIn(args.meterConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field meterConfig is unset!');
     }
@@ -840,8 +844,8 @@ PrismPrismToken1.TokenApi_issueCreditToken_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_issueCreditToken_args.prototype = {};
-PrismPrismToken1.TokenApi_issueCreditToken_args.prototype.read = function(input) {
+TokenApi_issueCreditToken_args.prototype = {};
+TokenApi_issueCreditToken_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -853,21 +857,21 @@ PrismPrismToken1.TokenApi_issueCreditToken_args.prototype.read = function(input)
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterConfig = new PrismPrismToken1.MeterConfigIn();
+        this.meterConfig = new ttypes.MeterConfigIn();
         this.meterConfig.read(input);
       } else {
         input.skip(ftype);
@@ -875,28 +879,28 @@ PrismPrismToken1.TokenApi_issueCreditToken_args.prototype.read = function(input)
       break;
       case 4:
       if (ftype == Thrift.Type.I16) {
-        this.subclass = input.readI16().value;
+        this.subclass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.DOUBLE) {
-        this.transferAmount = input.readDouble().value;
+        this.transferAmount = input.readDouble();
       } else {
         input.skip(ftype);
       }
       break;
       case 6:
       if (ftype == Thrift.Type.I64) {
-        this.tokenTime = input.readI64().value;
+        this.tokenTime = input.readI64();
       } else {
         input.skip(ftype);
       }
       break;
       case 7:
       if (ftype == Thrift.Type.I64) {
-        this.flags = input.readI64().value;
+        this.flags = input.readI64();
       } else {
         input.skip(ftype);
       }
@@ -910,7 +914,7 @@ PrismPrismToken1.TokenApi_issueCreditToken_args.prototype.read = function(input)
   return;
 };
 
-PrismPrismToken1.TokenApi_issueCreditToken_args.prototype.write = function(output) {
+TokenApi_issueCreditToken_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueCreditToken_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -952,24 +956,24 @@ PrismPrismToken1.TokenApi_issueCreditToken_args.prototype.write = function(outpu
   return;
 };
 
-PrismPrismToken1.TokenApi_issueCreditToken_result = function(args) {
+var TokenApi_issueCreditToken_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.Token]);
+      this.success = Thrift.copyList(args.success, [ttypes.Token]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_issueCreditToken_result.prototype = {};
-PrismPrismToken1.TokenApi_issueCreditToken_result.prototype.read = function(input) {
+TokenApi_issueCreditToken_result.prototype = {};
+TokenApi_issueCreditToken_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -986,7 +990,7 @@ PrismPrismToken1.TokenApi_issueCreditToken_result.prototype.read = function(inpu
         var _size17 = _rtmp318.size || 0;
         for (var _i19 = 0; _i19 < _size17; ++_i19) {
           var elem20 = null;
-          elem20 = new PrismPrismToken1.Token();
+          elem20 = new ttypes.Token();
           elem20.read(input);
           this.success.push(elem20);
         }
@@ -997,7 +1001,7 @@ PrismPrismToken1.TokenApi_issueCreditToken_result.prototype.read = function(inpu
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -1012,7 +1016,7 @@ PrismPrismToken1.TokenApi_issueCreditToken_result.prototype.read = function(inpu
   return;
 };
 
-PrismPrismToken1.TokenApi_issueCreditToken_result.prototype.write = function(output) {
+TokenApi_issueCreditToken_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueCreditToken_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -1036,7 +1040,7 @@ PrismPrismToken1.TokenApi_issueCreditToken_result.prototype.write = function(out
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMeterTestToken_args = function(args) {
+var TokenApi_issueMeterTestToken_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.subclass = null;
@@ -1070,8 +1074,8 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_issueMeterTestToken_args.prototype = {};
-PrismPrismToken1.TokenApi_issueMeterTestToken_args.prototype.read = function(input) {
+TokenApi_issueMeterTestToken_args.prototype = {};
+TokenApi_issueMeterTestToken_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1083,35 +1087,35 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_args.prototype.read = function(inp
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.I16) {
-        this.subclass = input.readI16().value;
+        this.subclass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 4:
       if (ftype == Thrift.Type.I64) {
-        this.control = input.readI64().value;
+        this.control = input.readI64();
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.I16) {
-        this.mfrcode = input.readI16().value;
+        this.mfrcode = input.readI16();
       } else {
         input.skip(ftype);
       }
@@ -1125,7 +1129,7 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_args.prototype.read = function(inp
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMeterTestToken_args.prototype.write = function(output) {
+TokenApi_issueMeterTestToken_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueMeterTestToken_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -1157,24 +1161,24 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_args.prototype.write = function(ou
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMeterTestToken_result = function(args) {
+var TokenApi_issueMeterTestToken_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new PrismPrismToken1.MeterTestToken(args.success);
+      this.success = new ttypes.MeterTestToken(args.success);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype = {};
-PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype.read = function(input) {
+TokenApi_issueMeterTestToken_result.prototype = {};
+TokenApi_issueMeterTestToken_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1186,7 +1190,7 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype.read = function(i
     switch (fid) {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new PrismPrismToken1.MeterTestToken();
+        this.success = new ttypes.MeterTestToken();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -1194,7 +1198,7 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype.read = function(i
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -1209,7 +1213,7 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype.read = function(i
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype.write = function(output) {
+TokenApi_issueMeterTestToken_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueMeterTestToken_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
@@ -1226,7 +1230,7 @@ PrismPrismToken1.TokenApi_issueMeterTestToken_result.prototype.write = function(
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMseToken_args = function(args) {
+var TokenApi_issueMseToken_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.meterConfig = null;
@@ -1246,7 +1250,7 @@ PrismPrismToken1.TokenApi_issueMseToken_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field accessToken is unset!');
     }
     if (args.meterConfig !== undefined && args.meterConfig !== null) {
-      this.meterConfig = new PrismPrismToken1.MeterConfigIn(args.meterConfig);
+      this.meterConfig = new ttypes.MeterConfigIn(args.meterConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field meterConfig is unset!');
     }
@@ -1272,8 +1276,8 @@ PrismPrismToken1.TokenApi_issueMseToken_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_issueMseToken_args.prototype = {};
-PrismPrismToken1.TokenApi_issueMseToken_args.prototype.read = function(input) {
+TokenApi_issueMseToken_args.prototype = {};
+TokenApi_issueMseToken_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1285,21 +1289,21 @@ PrismPrismToken1.TokenApi_issueMseToken_args.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterConfig = new PrismPrismToken1.MeterConfigIn();
+        this.meterConfig = new ttypes.MeterConfigIn();
         this.meterConfig.read(input);
       } else {
         input.skip(ftype);
@@ -1307,28 +1311,28 @@ PrismPrismToken1.TokenApi_issueMseToken_args.prototype.read = function(input) {
       break;
       case 4:
       if (ftype == Thrift.Type.I16) {
-        this.subclass = input.readI16().value;
+        this.subclass = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.DOUBLE) {
-        this.transferAmount = input.readDouble().value;
+        this.transferAmount = input.readDouble();
       } else {
         input.skip(ftype);
       }
       break;
       case 6:
       if (ftype == Thrift.Type.I64) {
-        this.tokenTime = input.readI64().value;
+        this.tokenTime = input.readI64();
       } else {
         input.skip(ftype);
       }
       break;
       case 7:
       if (ftype == Thrift.Type.I64) {
-        this.flags = input.readI64().value;
+        this.flags = input.readI64();
       } else {
         input.skip(ftype);
       }
@@ -1342,7 +1346,7 @@ PrismPrismToken1.TokenApi_issueMseToken_args.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMseToken_args.prototype.write = function(output) {
+TokenApi_issueMseToken_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueMseToken_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -1384,24 +1388,24 @@ PrismPrismToken1.TokenApi_issueMseToken_args.prototype.write = function(output) 
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMseToken_result = function(args) {
+var TokenApi_issueMseToken_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.Token]);
+      this.success = Thrift.copyList(args.success, [ttypes.Token]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_issueMseToken_result.prototype = {};
-PrismPrismToken1.TokenApi_issueMseToken_result.prototype.read = function(input) {
+TokenApi_issueMseToken_result.prototype = {};
+TokenApi_issueMseToken_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1418,7 +1422,7 @@ PrismPrismToken1.TokenApi_issueMseToken_result.prototype.read = function(input) 
         var _size22 = _rtmp323.size || 0;
         for (var _i24 = 0; _i24 < _size22; ++_i24) {
           var elem25 = null;
-          elem25 = new PrismPrismToken1.Token();
+          elem25 = new ttypes.Token();
           elem25.read(input);
           this.success.push(elem25);
         }
@@ -1429,7 +1433,7 @@ PrismPrismToken1.TokenApi_issueMseToken_result.prototype.read = function(input) 
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -1444,7 +1448,7 @@ PrismPrismToken1.TokenApi_issueMseToken_result.prototype.read = function(input) 
   return;
 };
 
-PrismPrismToken1.TokenApi_issueMseToken_result.prototype.write = function(output) {
+TokenApi_issueMseToken_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueMseToken_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -1468,7 +1472,7 @@ PrismPrismToken1.TokenApi_issueMseToken_result.prototype.write = function(output
   return;
 };
 
-PrismPrismToken1.TokenApi_issueSetControlToken_args = function(args) {
+var TokenApi_issueSetControlToken_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.meterConfig = null;
@@ -1489,7 +1493,7 @@ PrismPrismToken1.TokenApi_issueSetControlToken_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field accessToken is unset!');
     }
     if (args.meterConfig !== undefined && args.meterConfig !== null) {
-      this.meterConfig = new PrismPrismToken1.MeterConfigIn(args.meterConfig);
+      this.meterConfig = new ttypes.MeterConfigIn(args.meterConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field meterConfig is unset!');
     }
@@ -1520,8 +1524,8 @@ PrismPrismToken1.TokenApi_issueSetControlToken_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype = {};
-PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype.read = function(input) {
+TokenApi_issueSetControlToken_args.prototype = {};
+TokenApi_issueSetControlToken_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1533,21 +1537,21 @@ PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype.read = function(in
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterConfig = new PrismPrismToken1.MeterConfigIn();
+        this.meterConfig = new ttypes.MeterConfigIn();
         this.meterConfig.read(input);
       } else {
         input.skip(ftype);
@@ -1555,35 +1559,35 @@ PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype.read = function(in
       break;
       case 4:
       if (ftype == Thrift.Type.BOOL) {
-        this.isFlag = input.readBool().value;
+        this.isFlag = input.readBool();
       } else {
         input.skip(ftype);
       }
       break;
       case 5:
       if (ftype == Thrift.Type.I16) {
-        this.index = input.readI16().value;
+        this.index = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 6:
       if (ftype == Thrift.Type.I16) {
-        this.value = input.readI16().value;
+        this.value = input.readI16();
       } else {
         input.skip(ftype);
       }
       break;
       case 7:
       if (ftype == Thrift.Type.I64) {
-        this.tokenTime = input.readI64().value;
+        this.tokenTime = input.readI64();
       } else {
         input.skip(ftype);
       }
       break;
       case 8:
       if (ftype == Thrift.Type.I64) {
-        this.flags = input.readI64().value;
+        this.flags = input.readI64();
       } else {
         input.skip(ftype);
       }
@@ -1597,7 +1601,7 @@ PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype.read = function(in
   return;
 };
 
-PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype.write = function(output) {
+TokenApi_issueSetControlToken_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueSetControlToken_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -1644,24 +1648,24 @@ PrismPrismToken1.TokenApi_issueSetControlToken_args.prototype.write = function(o
   return;
 };
 
-PrismPrismToken1.TokenApi_issueSetControlToken_result = function(args) {
+var TokenApi_issueSetControlToken_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.Token]);
+      this.success = Thrift.copyList(args.success, [ttypes.Token]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype = {};
-PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype.read = function(input) {
+TokenApi_issueSetControlToken_result.prototype = {};
+TokenApi_issueSetControlToken_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1678,7 +1682,7 @@ PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype.read = function(
         var _size27 = _rtmp328.size || 0;
         for (var _i29 = 0; _i29 < _size27; ++_i29) {
           var elem30 = null;
-          elem30 = new PrismPrismToken1.Token();
+          elem30 = new ttypes.Token();
           elem30.read(input);
           this.success.push(elem30);
         }
@@ -1689,7 +1693,7 @@ PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype.read = function(
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -1704,7 +1708,7 @@ PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype.read = function(
   return;
 };
 
-PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype.write = function(output) {
+TokenApi_issueSetControlToken_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueSetControlToken_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -1728,7 +1732,7 @@ PrismPrismToken1.TokenApi_issueSetControlToken_result.prototype.write = function
   return;
 };
 
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_args = function(args) {
+var TokenApi_issueKeyChangeTokens_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.meterConfig = null;
@@ -1745,19 +1749,19 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field accessToken is unset!');
     }
     if (args.meterConfig !== undefined && args.meterConfig !== null) {
-      this.meterConfig = new PrismPrismToken1.MeterConfigIn(args.meterConfig);
+      this.meterConfig = new ttypes.MeterConfigIn(args.meterConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field meterConfig is unset!');
     }
     if (args.newConfig !== undefined && args.newConfig !== null) {
-      this.newConfig = new PrismPrismToken1.MeterConfigAmendment(args.newConfig);
+      this.newConfig = new ttypes.MeterConfigAmendment(args.newConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field newConfig is unset!');
     }
   }
 };
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype = {};
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype.read = function(input) {
+TokenApi_issueKeyChangeTokens_args.prototype = {};
+TokenApi_issueKeyChangeTokens_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1769,21 +1773,21 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype.read = function(in
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterConfig = new PrismPrismToken1.MeterConfigIn();
+        this.meterConfig = new ttypes.MeterConfigIn();
         this.meterConfig.read(input);
       } else {
         input.skip(ftype);
@@ -1791,7 +1795,7 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype.read = function(in
       break;
       case 4:
       if (ftype == Thrift.Type.STRUCT) {
-        this.newConfig = new PrismPrismToken1.MeterConfigAmendment();
+        this.newConfig = new ttypes.MeterConfigAmendment();
         this.newConfig.read(input);
       } else {
         input.skip(ftype);
@@ -1806,7 +1810,7 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype.read = function(in
   return;
 };
 
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype.write = function(output) {
+TokenApi_issueKeyChangeTokens_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueKeyChangeTokens_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -1833,24 +1837,24 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_args.prototype.write = function(o
   return;
 };
 
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_result = function(args) {
+var TokenApi_issueKeyChangeTokens_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.Token]);
+      this.success = Thrift.copyList(args.success, [ttypes.Token]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype = {};
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype.read = function(input) {
+TokenApi_issueKeyChangeTokens_result.prototype = {};
+TokenApi_issueKeyChangeTokens_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1867,7 +1871,7 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype.read = function(
         var _size32 = _rtmp333.size || 0;
         for (var _i34 = 0; _i34 < _size32; ++_i34) {
           var elem35 = null;
-          elem35 = new PrismPrismToken1.Token();
+          elem35 = new ttypes.Token();
           elem35.read(input);
           this.success.push(elem35);
         }
@@ -1878,7 +1882,7 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype.read = function(
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -1893,7 +1897,7 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype.read = function(
   return;
 };
 
-PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype.write = function(output) {
+TokenApi_issueKeyChangeTokens_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueKeyChangeTokens_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -1917,7 +1921,7 @@ PrismPrismToken1.TokenApi_issueKeyChangeTokens_result.prototype.write = function
   return;
 };
 
-PrismPrismToken1.TokenApi_verifyToken_args = function(args) {
+var TokenApi_verifyToken_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.meterConfig = null;
@@ -1934,7 +1938,7 @@ PrismPrismToken1.TokenApi_verifyToken_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field accessToken is unset!');
     }
     if (args.meterConfig !== undefined && args.meterConfig !== null) {
-      this.meterConfig = new PrismPrismToken1.MeterConfigIn(args.meterConfig);
+      this.meterConfig = new ttypes.MeterConfigIn(args.meterConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field meterConfig is unset!');
     }
@@ -1945,8 +1949,8 @@ PrismPrismToken1.TokenApi_verifyToken_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_verifyToken_args.prototype = {};
-PrismPrismToken1.TokenApi_verifyToken_args.prototype.read = function(input) {
+TokenApi_verifyToken_args.prototype = {};
+TokenApi_verifyToken_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -1958,21 +1962,21 @@ PrismPrismToken1.TokenApi_verifyToken_args.prototype.read = function(input) {
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterConfig = new PrismPrismToken1.MeterConfigIn();
+        this.meterConfig = new ttypes.MeterConfigIn();
         this.meterConfig.read(input);
       } else {
         input.skip(ftype);
@@ -1980,7 +1984,7 @@ PrismPrismToken1.TokenApi_verifyToken_args.prototype.read = function(input) {
       break;
       case 4:
       if (ftype == Thrift.Type.STRING) {
-        this.tokenDec = input.readString().value;
+        this.tokenDec = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -1994,7 +1998,7 @@ PrismPrismToken1.TokenApi_verifyToken_args.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_verifyToken_args.prototype.write = function(output) {
+TokenApi_verifyToken_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_verifyToken_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -2021,24 +2025,24 @@ PrismPrismToken1.TokenApi_verifyToken_args.prototype.write = function(output) {
   return;
 };
 
-PrismPrismToken1.TokenApi_verifyToken_result = function(args) {
+var TokenApi_verifyToken_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new PrismPrismToken1.VerifyResult(args.success);
+      this.success = new ttypes.VerifyResult(args.success);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_verifyToken_result.prototype = {};
-PrismPrismToken1.TokenApi_verifyToken_result.prototype.read = function(input) {
+TokenApi_verifyToken_result.prototype = {};
+TokenApi_verifyToken_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2050,7 +2054,7 @@ PrismPrismToken1.TokenApi_verifyToken_result.prototype.read = function(input) {
     switch (fid) {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new PrismPrismToken1.VerifyResult();
+        this.success = new ttypes.VerifyResult();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -2058,7 +2062,7 @@ PrismPrismToken1.TokenApi_verifyToken_result.prototype.read = function(input) {
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -2073,7 +2077,7 @@ PrismPrismToken1.TokenApi_verifyToken_result.prototype.read = function(input) {
   return;
 };
 
-PrismPrismToken1.TokenApi_verifyToken_result.prototype.write = function(output) {
+TokenApi_verifyToken_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_verifyToken_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
@@ -2090,7 +2094,7 @@ PrismPrismToken1.TokenApi_verifyToken_result.prototype.write = function(output) 
   return;
 };
 
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_args = function(args) {
+var TokenApi_issueDitkChangeTokens_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.meterConfig = null;
@@ -2106,14 +2110,14 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_args = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field accessToken is unset!');
     }
     if (args.meterConfig !== undefined && args.meterConfig !== null) {
-      this.meterConfig = new PrismPrismToken1.MeterConfigIn(args.meterConfig);
+      this.meterConfig = new ttypes.MeterConfigIn(args.meterConfig);
     } else {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field meterConfig is unset!');
     }
   }
 };
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_args.prototype = {};
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_args.prototype.read = function(input) {
+TokenApi_issueDitkChangeTokens_args.prototype = {};
+TokenApi_issueDitkChangeTokens_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2125,21 +2129,21 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_args.prototype.read = function(i
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
-        this.meterConfig = new PrismPrismToken1.MeterConfigIn();
+        this.meterConfig = new ttypes.MeterConfigIn();
         this.meterConfig.read(input);
       } else {
         input.skip(ftype);
@@ -2154,7 +2158,7 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_args.prototype.read = function(i
   return;
 };
 
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_args.prototype.write = function(output) {
+TokenApi_issueDitkChangeTokens_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueDitkChangeTokens_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -2176,24 +2180,24 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_args.prototype.write = function(
   return;
 };
 
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_result = function(args) {
+var TokenApi_issueDitkChangeTokens_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.Token]);
+      this.success = Thrift.copyList(args.success, [ttypes.Token]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype = {};
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype.read = function(input) {
+TokenApi_issueDitkChangeTokens_result.prototype = {};
+TokenApi_issueDitkChangeTokens_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2210,7 +2214,7 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype.read = function
         var _size37 = _rtmp338.size || 0;
         for (var _i39 = 0; _i39 < _size37; ++_i39) {
           var elem40 = null;
-          elem40 = new PrismPrismToken1.Token();
+          elem40 = new ttypes.Token();
           elem40.read(input);
           this.success.push(elem40);
         }
@@ -2221,7 +2225,7 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype.read = function
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -2236,7 +2240,7 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype.read = function
   return;
 };
 
-PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype.write = function(output) {
+TokenApi_issueDitkChangeTokens_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_issueDitkChangeTokens_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -2260,7 +2264,7 @@ PrismPrismToken1.TokenApi_issueDitkChangeTokens_result.prototype.write = functio
   return;
 };
 
-PrismPrismToken1.TokenApi_fetchTokenResult_args = function(args) {
+var TokenApi_fetchTokenResult_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.reqMessageId = null;
@@ -2282,8 +2286,8 @@ PrismPrismToken1.TokenApi_fetchTokenResult_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_fetchTokenResult_args.prototype = {};
-PrismPrismToken1.TokenApi_fetchTokenResult_args.prototype.read = function(input) {
+TokenApi_fetchTokenResult_args.prototype = {};
+TokenApi_fetchTokenResult_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2295,21 +2299,21 @@ PrismPrismToken1.TokenApi_fetchTokenResult_args.prototype.read = function(input)
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.reqMessageId = input.readString().value;
+        this.reqMessageId = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -2323,7 +2327,7 @@ PrismPrismToken1.TokenApi_fetchTokenResult_args.prototype.read = function(input)
   return;
 };
 
-PrismPrismToken1.TokenApi_fetchTokenResult_args.prototype.write = function(output) {
+TokenApi_fetchTokenResult_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_fetchTokenResult_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -2345,24 +2349,24 @@ PrismPrismToken1.TokenApi_fetchTokenResult_args.prototype.write = function(outpu
   return;
 };
 
-PrismPrismToken1.TokenApi_fetchTokenResult_result = function(args) {
+var TokenApi_fetchTokenResult_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = Thrift.copyList(args.success, [PrismPrismToken1.Token]);
+      this.success = Thrift.copyList(args.success, [ttypes.Token]);
     }
     if (args.ex1 !== undefined && args.ex1 !== null) {
       this.ex1 = args.ex1;
     }
   }
 };
-PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype = {};
-PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype.read = function(input) {
+TokenApi_fetchTokenResult_result.prototype = {};
+TokenApi_fetchTokenResult_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2379,7 +2383,7 @@ PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype.read = function(inpu
         var _size42 = _rtmp343.size || 0;
         for (var _i44 = 0; _i44 < _size42; ++_i44) {
           var elem45 = null;
-          elem45 = new PrismPrismToken1.Token();
+          elem45 = new ttypes.Token();
           elem45.read(input);
           this.success.push(elem45);
         }
@@ -2390,7 +2394,7 @@ PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype.read = function(inpu
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -2405,7 +2409,7 @@ PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype.read = function(inpu
   return;
 };
 
-PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype.write = function(output) {
+TokenApi_fetchTokenResult_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_fetchTokenResult_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -2429,7 +2433,7 @@ PrismPrismToken1.TokenApi_fetchTokenResult_result.prototype.write = function(out
   return;
 };
 
-PrismPrismToken1.TokenApi_ctsResetTidList_args = function(args) {
+var TokenApi_ctsResetTidList_args = function(args) {
   this.messageId = null;
   this.accessToken = null;
   this.panPattern = null;
@@ -2451,8 +2455,8 @@ PrismPrismToken1.TokenApi_ctsResetTidList_args = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_ctsResetTidList_args.prototype = {};
-PrismPrismToken1.TokenApi_ctsResetTidList_args.prototype.read = function(input) {
+TokenApi_ctsResetTidList_args.prototype = {};
+TokenApi_ctsResetTidList_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2464,21 +2468,21 @@ PrismPrismToken1.TokenApi_ctsResetTidList_args.prototype.read = function(input) 
     switch (fid) {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.messageId = input.readString().value;
+        this.messageId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.accessToken = input.readString().value;
+        this.accessToken = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 3:
       if (ftype == Thrift.Type.STRING) {
-        this.panPattern = input.readString().value;
+        this.panPattern = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -2492,7 +2496,7 @@ PrismPrismToken1.TokenApi_ctsResetTidList_args.prototype.read = function(input) 
   return;
 };
 
-PrismPrismToken1.TokenApi_ctsResetTidList_args.prototype.write = function(output) {
+TokenApi_ctsResetTidList_args.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_ctsResetTidList_args');
   if (this.messageId !== null && this.messageId !== undefined) {
     output.writeFieldBegin('messageId', Thrift.Type.STRING, 1);
@@ -2514,10 +2518,10 @@ PrismPrismToken1.TokenApi_ctsResetTidList_args.prototype.write = function(output
   return;
 };
 
-PrismPrismToken1.TokenApi_ctsResetTidList_result = function(args) {
+var TokenApi_ctsResetTidList_result = function(args) {
   this.success = null;
   this.ex1 = null;
-  if (args instanceof PrismPrismToken1.ApiException) {
+  if (args instanceof ttypes.ApiException) {
     this.ex1 = args;
     return;
   }
@@ -2530,8 +2534,8 @@ PrismPrismToken1.TokenApi_ctsResetTidList_result = function(args) {
     }
   }
 };
-PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype = {};
-PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype.read = function(input) {
+TokenApi_ctsResetTidList_result.prototype = {};
+TokenApi_ctsResetTidList_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true) {
     var ret = input.readFieldBegin();
@@ -2548,7 +2552,7 @@ PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype.read = function(input
         var _size47 = _rtmp348.size || 0;
         for (var _i49 = 0; _i49 < _size47; ++_i49) {
           var elem50 = null;
-          elem50 = input.readString().value;
+          elem50 = input.readString();
           this.success.push(elem50);
         }
         input.readListEnd();
@@ -2558,7 +2562,7 @@ PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype.read = function(input
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.ex1 = new PrismPrismToken1.ApiException();
+        this.ex1 = new ttypes.ApiException();
         this.ex1.read(input);
       } else {
         input.skip(ftype);
@@ -2573,7 +2577,7 @@ PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype.read = function(input
   return;
 };
 
-PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype.write = function(output) {
+TokenApi_ctsResetTidList_result.prototype.write = function(output) {
   output.writeStructBegin('TokenApi_ctsResetTidList_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.LIST, 0);
@@ -2597,83 +2601,100 @@ PrismPrismToken1.TokenApi_ctsResetTidList_result.prototype.write = function(outp
   return;
 };
 
-PrismPrismToken1.TokenApiClient = function(input, output) {
-  this.input = input;
-  this.output = (!output) ? input : output;
-  this.seqid = 0;
+var TokenApiClient = exports.Client = function(output, pClass) {
+  this.output = output;
+  this.pClass = pClass;
+  this._seqid = 0;
+  this._reqs = {};
 };
-PrismPrismToken1.TokenApiClient.prototype = {};
+TokenApiClient.prototype = {};
+TokenApiClient.prototype.seqid = function() { return this._seqid; };
+TokenApiClient.prototype.new_seqid = function() { return this._seqid += 1; };
 
-PrismPrismToken1.TokenApiClient.prototype.ping = function(sleepMs, echo, callback) {
-  this.send_ping(sleepMs, echo, callback); 
-  if (!callback) {
-    return this.recv_ping();
+TokenApiClient.prototype.ping = function(sleepMs, echo, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_ping(sleepMs, echo);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_ping(sleepMs, echo);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_ping = function(sleepMs, echo, callback) {
+TokenApiClient.prototype.send_ping = function(sleepMs, echo) {
+  var output = new this.pClass(this.output);
   var params = {
     sleepMs: sleepMs,
     echo: echo
   };
-  var args = new PrismPrismToken1.TokenApi_ping_args(params);
+  var args = new TokenApi_ping_args(params);
   try {
-    this.output.writeMessageBegin('ping', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_ping();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('ping', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_ping = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_ping = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_ping_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_ping_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'ping failed: unknown result';
+  return callback('ping failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.signInWithPassword = function(messageId, realm, username, password, sessionOpts, callback) {
-  this.send_signInWithPassword(messageId, realm, username, password, sessionOpts, callback); 
-  if (!callback) {
-    return this.recv_signInWithPassword();
+TokenApiClient.prototype.signInWithPassword = function(messageId, realm, username, password, sessionOpts, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_signInWithPassword(messageId, realm, username, password, sessionOpts);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_signInWithPassword(messageId, realm, username, password, sessionOpts);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_signInWithPassword = function(messageId, realm, username, password, sessionOpts, callback) {
+TokenApiClient.prototype.send_signInWithPassword = function(messageId, realm, username, password, sessionOpts) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     realm: realm,
@@ -2681,252 +2702,256 @@ PrismPrismToken1.TokenApiClient.prototype.send_signInWithPassword = function(mes
     password: password,
     sessionOpts: sessionOpts
   };
-  var args = new PrismPrismToken1.TokenApi_signInWithPassword_args(params);
+  var args = new TokenApi_signInWithPassword_args(params);
   try {
-    this.output.writeMessageBegin('signInWithPassword', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_signInWithPassword();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('signInWithPassword', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_signInWithPassword = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_signInWithPassword = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_signInWithPassword_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_signInWithPassword_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'signInWithPassword failed: unknown result';
+  return callback('signInWithPassword failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.getStatus = function(messageId, accessToken, callback) {
-  this.send_getStatus(messageId, accessToken, callback); 
-  if (!callback) {
-    return this.recv_getStatus();
+TokenApiClient.prototype.getStatus = function(messageId, accessToken, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_getStatus(messageId, accessToken);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_getStatus(messageId, accessToken);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_getStatus = function(messageId, accessToken, callback) {
+TokenApiClient.prototype.send_getStatus = function(messageId, accessToken) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken
   };
-  var args = new PrismPrismToken1.TokenApi_getStatus_args(params);
+  var args = new TokenApi_getStatus_args(params);
   try {
-    this.output.writeMessageBegin('getStatus', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_getStatus();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('getStatus', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_getStatus = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_getStatus = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_getStatus_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_getStatus_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'getStatus failed: unknown result';
+  return callback('getStatus failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.parseIdRecord = function(messageId, accessToken, idRecord, callback) {
-  this.send_parseIdRecord(messageId, accessToken, idRecord, callback); 
-  if (!callback) {
-    return this.recv_parseIdRecord();
+TokenApiClient.prototype.parseIdRecord = function(messageId, accessToken, idRecord, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_parseIdRecord(messageId, accessToken, idRecord);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_parseIdRecord(messageId, accessToken, idRecord);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_parseIdRecord = function(messageId, accessToken, idRecord, callback) {
+TokenApiClient.prototype.send_parseIdRecord = function(messageId, accessToken, idRecord) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     idRecord: idRecord
   };
-  var args = new PrismPrismToken1.TokenApi_parseIdRecord_args(params);
+  var args = new TokenApi_parseIdRecord_args(params);
   try {
-    this.output.writeMessageBegin('parseIdRecord', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_parseIdRecord();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('parseIdRecord', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_parseIdRecord = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_parseIdRecord = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_parseIdRecord_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_parseIdRecord_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'parseIdRecord failed: unknown result';
+  return callback('parseIdRecord failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.loadTransactionLicense = function(messageId, accessToken, licenseText, callback) {
-  this.send_loadTransactionLicense(messageId, accessToken, licenseText, callback); 
-  if (!callback) {
-    return this.recv_loadTransactionLicense();
+TokenApiClient.prototype.loadTransactionLicense = function(messageId, accessToken, licenseText, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_loadTransactionLicense(messageId, accessToken, licenseText);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_loadTransactionLicense(messageId, accessToken, licenseText);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_loadTransactionLicense = function(messageId, accessToken, licenseText, callback) {
+TokenApiClient.prototype.send_loadTransactionLicense = function(messageId, accessToken, licenseText) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     licenseText: licenseText
   };
-  var args = new PrismPrismToken1.TokenApi_loadTransactionLicense_args(params);
+  var args = new TokenApi_loadTransactionLicense_args(params);
   try {
-    this.output.writeMessageBegin('loadTransactionLicense', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_loadTransactionLicense();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('loadTransactionLicense', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_loadTransactionLicense = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_loadTransactionLicense = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_loadTransactionLicense_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_loadTransactionLicense_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'loadTransactionLicense failed: unknown result';
+  return callback('loadTransactionLicense failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.issueCreditToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback) {
-  this.send_issueCreditToken(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback); 
-  if (!callback) {
-    return this.recv_issueCreditToken();
+TokenApiClient.prototype.issueCreditToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_issueCreditToken(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_issueCreditToken(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_issueCreditToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback) {
+TokenApiClient.prototype.send_issueCreditToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
@@ -2936,64 +2961,65 @@ PrismPrismToken1.TokenApiClient.prototype.send_issueCreditToken = function(messa
     tokenTime: tokenTime,
     flags: flags
   };
-  var args = new PrismPrismToken1.TokenApi_issueCreditToken_args(params);
+  var args = new TokenApi_issueCreditToken_args(params);
   try {
-    this.output.writeMessageBegin('issueCreditToken', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_issueCreditToken();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('issueCreditToken', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_issueCreditToken = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_issueCreditToken = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_issueCreditToken_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_issueCreditToken_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'issueCreditToken failed: unknown result';
+  return callback('issueCreditToken failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.issueMeterTestToken = function(messageId, accessToken, subclass, control, mfrcode, callback) {
-  this.send_issueMeterTestToken(messageId, accessToken, subclass, control, mfrcode, callback); 
-  if (!callback) {
-    return this.recv_issueMeterTestToken();
+TokenApiClient.prototype.issueMeterTestToken = function(messageId, accessToken, subclass, control, mfrcode, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_issueMeterTestToken(messageId, accessToken, subclass, control, mfrcode);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_issueMeterTestToken(messageId, accessToken, subclass, control, mfrcode);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_issueMeterTestToken = function(messageId, accessToken, subclass, control, mfrcode, callback) {
+TokenApiClient.prototype.send_issueMeterTestToken = function(messageId, accessToken, subclass, control, mfrcode) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
@@ -3001,64 +3027,65 @@ PrismPrismToken1.TokenApiClient.prototype.send_issueMeterTestToken = function(me
     control: control,
     mfrcode: mfrcode
   };
-  var args = new PrismPrismToken1.TokenApi_issueMeterTestToken_args(params);
+  var args = new TokenApi_issueMeterTestToken_args(params);
   try {
-    this.output.writeMessageBegin('issueMeterTestToken', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_issueMeterTestToken();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('issueMeterTestToken', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_issueMeterTestToken = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_issueMeterTestToken = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_issueMeterTestToken_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_issueMeterTestToken_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'issueMeterTestToken failed: unknown result';
+  return callback('issueMeterTestToken failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.issueMseToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback) {
-  this.send_issueMseToken(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback); 
-  if (!callback) {
-    return this.recv_issueMseToken();
+TokenApiClient.prototype.issueMseToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_issueMseToken(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_issueMseToken(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_issueMseToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags, callback) {
+TokenApiClient.prototype.send_issueMseToken = function(messageId, accessToken, meterConfig, subclass, transferAmount, tokenTime, flags) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
@@ -3068,64 +3095,65 @@ PrismPrismToken1.TokenApiClient.prototype.send_issueMseToken = function(messageI
     tokenTime: tokenTime,
     flags: flags
   };
-  var args = new PrismPrismToken1.TokenApi_issueMseToken_args(params);
+  var args = new TokenApi_issueMseToken_args(params);
   try {
-    this.output.writeMessageBegin('issueMseToken', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_issueMseToken();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('issueMseToken', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_issueMseToken = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_issueMseToken = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_issueMseToken_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_issueMseToken_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'issueMseToken failed: unknown result';
+  return callback('issueMseToken failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.issueSetControlToken = function(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags, callback) {
-  this.send_issueSetControlToken(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags, callback); 
-  if (!callback) {
-    return this.recv_issueSetControlToken();
+TokenApiClient.prototype.issueSetControlToken = function(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_issueSetControlToken(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_issueSetControlToken(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_issueSetControlToken = function(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags, callback) {
+TokenApiClient.prototype.send_issueSetControlToken = function(messageId, accessToken, meterConfig, isFlag, index, value, tokenTime, flags) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
@@ -3136,369 +3164,1012 @@ PrismPrismToken1.TokenApiClient.prototype.send_issueSetControlToken = function(m
     tokenTime: tokenTime,
     flags: flags
   };
-  var args = new PrismPrismToken1.TokenApi_issueSetControlToken_args(params);
+  var args = new TokenApi_issueSetControlToken_args(params);
   try {
-    this.output.writeMessageBegin('issueSetControlToken', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_issueSetControlToken();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('issueSetControlToken', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_issueSetControlToken = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_issueSetControlToken = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_issueSetControlToken_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_issueSetControlToken_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'issueSetControlToken failed: unknown result';
+  return callback('issueSetControlToken failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.issueKeyChangeTokens = function(messageId, accessToken, meterConfig, newConfig, callback) {
-  this.send_issueKeyChangeTokens(messageId, accessToken, meterConfig, newConfig, callback); 
-  if (!callback) {
-    return this.recv_issueKeyChangeTokens();
+TokenApiClient.prototype.issueKeyChangeTokens = function(messageId, accessToken, meterConfig, newConfig, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_issueKeyChangeTokens(messageId, accessToken, meterConfig, newConfig);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_issueKeyChangeTokens(messageId, accessToken, meterConfig, newConfig);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_issueKeyChangeTokens = function(messageId, accessToken, meterConfig, newConfig, callback) {
+TokenApiClient.prototype.send_issueKeyChangeTokens = function(messageId, accessToken, meterConfig, newConfig) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     meterConfig: meterConfig,
     newConfig: newConfig
   };
-  var args = new PrismPrismToken1.TokenApi_issueKeyChangeTokens_args(params);
+  var args = new TokenApi_issueKeyChangeTokens_args(params);
   try {
-    this.output.writeMessageBegin('issueKeyChangeTokens', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_issueKeyChangeTokens();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('issueKeyChangeTokens', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_issueKeyChangeTokens = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_issueKeyChangeTokens = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_issueKeyChangeTokens_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_issueKeyChangeTokens_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'issueKeyChangeTokens failed: unknown result';
+  return callback('issueKeyChangeTokens failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.verifyToken = function(messageId, accessToken, meterConfig, tokenDec, callback) {
-  this.send_verifyToken(messageId, accessToken, meterConfig, tokenDec, callback); 
-  if (!callback) {
-    return this.recv_verifyToken();
+TokenApiClient.prototype.verifyToken = function(messageId, accessToken, meterConfig, tokenDec, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_verifyToken(messageId, accessToken, meterConfig, tokenDec);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_verifyToken(messageId, accessToken, meterConfig, tokenDec);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_verifyToken = function(messageId, accessToken, meterConfig, tokenDec, callback) {
+TokenApiClient.prototype.send_verifyToken = function(messageId, accessToken, meterConfig, tokenDec) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     meterConfig: meterConfig,
     tokenDec: tokenDec
   };
-  var args = new PrismPrismToken1.TokenApi_verifyToken_args(params);
+  var args = new TokenApi_verifyToken_args(params);
   try {
-    this.output.writeMessageBegin('verifyToken', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_verifyToken();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('verifyToken', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_verifyToken = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_verifyToken = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_verifyToken_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_verifyToken_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'verifyToken failed: unknown result';
+  return callback('verifyToken failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.issueDitkChangeTokens = function(messageId, accessToken, meterConfig, callback) {
-  this.send_issueDitkChangeTokens(messageId, accessToken, meterConfig, callback); 
-  if (!callback) {
-    return this.recv_issueDitkChangeTokens();
+TokenApiClient.prototype.issueDitkChangeTokens = function(messageId, accessToken, meterConfig, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_issueDitkChangeTokens(messageId, accessToken, meterConfig);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_issueDitkChangeTokens(messageId, accessToken, meterConfig);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_issueDitkChangeTokens = function(messageId, accessToken, meterConfig, callback) {
+TokenApiClient.prototype.send_issueDitkChangeTokens = function(messageId, accessToken, meterConfig) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     meterConfig: meterConfig
   };
-  var args = new PrismPrismToken1.TokenApi_issueDitkChangeTokens_args(params);
+  var args = new TokenApi_issueDitkChangeTokens_args(params);
   try {
-    this.output.writeMessageBegin('issueDitkChangeTokens', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_issueDitkChangeTokens();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('issueDitkChangeTokens', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_issueDitkChangeTokens = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_issueDitkChangeTokens = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_issueDitkChangeTokens_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_issueDitkChangeTokens_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'issueDitkChangeTokens failed: unknown result';
+  return callback('issueDitkChangeTokens failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.fetchTokenResult = function(messageId, accessToken, reqMessageId, callback) {
-  this.send_fetchTokenResult(messageId, accessToken, reqMessageId, callback); 
-  if (!callback) {
-    return this.recv_fetchTokenResult();
+TokenApiClient.prototype.fetchTokenResult = function(messageId, accessToken, reqMessageId, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_fetchTokenResult(messageId, accessToken, reqMessageId);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_fetchTokenResult(messageId, accessToken, reqMessageId);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_fetchTokenResult = function(messageId, accessToken, reqMessageId, callback) {
+TokenApiClient.prototype.send_fetchTokenResult = function(messageId, accessToken, reqMessageId) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     reqMessageId: reqMessageId
   };
-  var args = new PrismPrismToken1.TokenApi_fetchTokenResult_args(params);
+  var args = new TokenApi_fetchTokenResult_args(params);
   try {
-    this.output.writeMessageBegin('fetchTokenResult', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_fetchTokenResult();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('fetchTokenResult', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_fetchTokenResult = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_fetchTokenResult = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_fetchTokenResult_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_fetchTokenResult_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'fetchTokenResult failed: unknown result';
+  return callback('fetchTokenResult failed: unknown result');
 };
 
-PrismPrismToken1.TokenApiClient.prototype.ctsResetTidList = function(messageId, accessToken, panPattern, callback) {
-  this.send_ctsResetTidList(messageId, accessToken, panPattern, callback); 
-  if (!callback) {
-    return this.recv_ctsResetTidList();
+TokenApiClient.prototype.ctsResetTidList = function(messageId, accessToken, panPattern, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_ctsResetTidList(messageId, accessToken, panPattern);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_ctsResetTidList(messageId, accessToken, panPattern);
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.send_ctsResetTidList = function(messageId, accessToken, panPattern, callback) {
+TokenApiClient.prototype.send_ctsResetTidList = function(messageId, accessToken, panPattern) {
+  var output = new this.pClass(this.output);
   var params = {
     messageId: messageId,
     accessToken: accessToken,
     panPattern: panPattern
   };
-  var args = new PrismPrismToken1.TokenApi_ctsResetTidList_args(params);
+  var args = new TokenApi_ctsResetTidList_args(params);
   try {
-    this.output.writeMessageBegin('ctsResetTidList', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_ctsResetTidList();
-        } catch (e) {
-          result = e;
-        }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
+    output.writeMessageBegin('ctsResetTidList', Thrift.MessageType.CALL, this.seqid());
+    args.write(output);
+    output.writeMessageEnd();
+    return this.output.flush();
   }
   catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+    delete this._reqs[this.seqid()];
+    if (typeof output.reset === 'function') {
+      output.reset();
     }
     throw e;
   }
 };
 
-PrismPrismToken1.TokenApiClient.prototype.recv_ctsResetTidList = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
+TokenApiClient.prototype.recv_ctsResetTidList = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
     var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
   }
-  var result = new PrismPrismToken1.TokenApi_ctsResetTidList_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
+  var result = new TokenApi_ctsResetTidList_result();
+  result.read(input);
+  input.readMessageEnd();
 
   if (null !== result.ex1) {
-    throw result.ex1;
+    return callback(result.ex1);
   }
   if (null !== result.success) {
-    return result.success;
+    return callback(null, result.success);
   }
-  throw 'ctsResetTidList failed: unknown result';
+  return callback('ctsResetTidList failed: unknown result');
+};
+var TokenApiProcessor = exports.Processor = function(handler) {
+  this._handler = handler;
+};
+TokenApiProcessor.prototype.process = function(input, output) {
+  var r = input.readMessageBegin();
+  if (this['process_' + r.fname]) {
+    return this['process_' + r.fname].call(this, r.rseqid, input, output);
+  } else {
+    input.skip(Thrift.Type.STRUCT);
+    input.readMessageEnd();
+    var x = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, 'Unknown function ' + r.fname);
+    output.writeMessageBegin(r.fname, Thrift.MessageType.EXCEPTION, r.rseqid);
+    x.write(output);
+    output.writeMessageEnd();
+    output.flush();
+  }
+};
+TokenApiProcessor.prototype.process_ping = function(seqid, input, output) {
+  var args = new TokenApi_ping_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.ping.length === 2) {
+    Q.fcall(this._handler.ping.bind(this._handler),
+      args.sleepMs,
+      args.echo
+    ).then(function(result) {
+      var result_obj = new TokenApi_ping_result({success: result});
+      output.writeMessageBegin("ping", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_ping_result(err);
+        output.writeMessageBegin("ping", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("ping", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.ping(args.sleepMs, args.echo, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_ping_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("ping", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("ping", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_signInWithPassword = function(seqid, input, output) {
+  var args = new TokenApi_signInWithPassword_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.signInWithPassword.length === 5) {
+    Q.fcall(this._handler.signInWithPassword.bind(this._handler),
+      args.messageId,
+      args.realm,
+      args.username,
+      args.password,
+      args.sessionOpts
+    ).then(function(result) {
+      var result_obj = new TokenApi_signInWithPassword_result({success: result});
+      output.writeMessageBegin("signInWithPassword", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_signInWithPassword_result(err);
+        output.writeMessageBegin("signInWithPassword", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("signInWithPassword", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.signInWithPassword(args.messageId, args.realm, args.username, args.password, args.sessionOpts, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_signInWithPassword_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("signInWithPassword", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("signInWithPassword", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_getStatus = function(seqid, input, output) {
+  var args = new TokenApi_getStatus_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.getStatus.length === 2) {
+    Q.fcall(this._handler.getStatus.bind(this._handler),
+      args.messageId,
+      args.accessToken
+    ).then(function(result) {
+      var result_obj = new TokenApi_getStatus_result({success: result});
+      output.writeMessageBegin("getStatus", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_getStatus_result(err);
+        output.writeMessageBegin("getStatus", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("getStatus", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.getStatus(args.messageId, args.accessToken, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_getStatus_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("getStatus", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("getStatus", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_parseIdRecord = function(seqid, input, output) {
+  var args = new TokenApi_parseIdRecord_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.parseIdRecord.length === 3) {
+    Q.fcall(this._handler.parseIdRecord.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.idRecord
+    ).then(function(result) {
+      var result_obj = new TokenApi_parseIdRecord_result({success: result});
+      output.writeMessageBegin("parseIdRecord", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_parseIdRecord_result(err);
+        output.writeMessageBegin("parseIdRecord", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("parseIdRecord", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.parseIdRecord(args.messageId, args.accessToken, args.idRecord, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_parseIdRecord_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("parseIdRecord", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("parseIdRecord", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_loadTransactionLicense = function(seqid, input, output) {
+  var args = new TokenApi_loadTransactionLicense_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.loadTransactionLicense.length === 3) {
+    Q.fcall(this._handler.loadTransactionLicense.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.licenseText
+    ).then(function(result) {
+      var result_obj = new TokenApi_loadTransactionLicense_result({success: result});
+      output.writeMessageBegin("loadTransactionLicense", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_loadTransactionLicense_result(err);
+        output.writeMessageBegin("loadTransactionLicense", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("loadTransactionLicense", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.loadTransactionLicense(args.messageId, args.accessToken, args.licenseText, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_loadTransactionLicense_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("loadTransactionLicense", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("loadTransactionLicense", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_issueCreditToken = function(seqid, input, output) {
+  var args = new TokenApi_issueCreditToken_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.issueCreditToken.length === 7) {
+    Q.fcall(this._handler.issueCreditToken.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.meterConfig,
+      args.subclass,
+      args.transferAmount,
+      args.tokenTime,
+      args.flags
+    ).then(function(result) {
+      var result_obj = new TokenApi_issueCreditToken_result({success: result});
+      output.writeMessageBegin("issueCreditToken", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_issueCreditToken_result(err);
+        output.writeMessageBegin("issueCreditToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueCreditToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.issueCreditToken(args.messageId, args.accessToken, args.meterConfig, args.subclass, args.transferAmount, args.tokenTime, args.flags, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_issueCreditToken_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("issueCreditToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueCreditToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_issueMeterTestToken = function(seqid, input, output) {
+  var args = new TokenApi_issueMeterTestToken_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.issueMeterTestToken.length === 5) {
+    Q.fcall(this._handler.issueMeterTestToken.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.subclass,
+      args.control,
+      args.mfrcode
+    ).then(function(result) {
+      var result_obj = new TokenApi_issueMeterTestToken_result({success: result});
+      output.writeMessageBegin("issueMeterTestToken", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_issueMeterTestToken_result(err);
+        output.writeMessageBegin("issueMeterTestToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueMeterTestToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.issueMeterTestToken(args.messageId, args.accessToken, args.subclass, args.control, args.mfrcode, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_issueMeterTestToken_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("issueMeterTestToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueMeterTestToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_issueMseToken = function(seqid, input, output) {
+  var args = new TokenApi_issueMseToken_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.issueMseToken.length === 7) {
+    Q.fcall(this._handler.issueMseToken.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.meterConfig,
+      args.subclass,
+      args.transferAmount,
+      args.tokenTime,
+      args.flags
+    ).then(function(result) {
+      var result_obj = new TokenApi_issueMseToken_result({success: result});
+      output.writeMessageBegin("issueMseToken", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_issueMseToken_result(err);
+        output.writeMessageBegin("issueMseToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueMseToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.issueMseToken(args.messageId, args.accessToken, args.meterConfig, args.subclass, args.transferAmount, args.tokenTime, args.flags, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_issueMseToken_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("issueMseToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueMseToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_issueSetControlToken = function(seqid, input, output) {
+  var args = new TokenApi_issueSetControlToken_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.issueSetControlToken.length === 8) {
+    Q.fcall(this._handler.issueSetControlToken.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.meterConfig,
+      args.isFlag,
+      args.index,
+      args.value,
+      args.tokenTime,
+      args.flags
+    ).then(function(result) {
+      var result_obj = new TokenApi_issueSetControlToken_result({success: result});
+      output.writeMessageBegin("issueSetControlToken", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_issueSetControlToken_result(err);
+        output.writeMessageBegin("issueSetControlToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueSetControlToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.issueSetControlToken(args.messageId, args.accessToken, args.meterConfig, args.isFlag, args.index, args.value, args.tokenTime, args.flags, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_issueSetControlToken_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("issueSetControlToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueSetControlToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_issueKeyChangeTokens = function(seqid, input, output) {
+  var args = new TokenApi_issueKeyChangeTokens_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.issueKeyChangeTokens.length === 4) {
+    Q.fcall(this._handler.issueKeyChangeTokens.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.meterConfig,
+      args.newConfig
+    ).then(function(result) {
+      var result_obj = new TokenApi_issueKeyChangeTokens_result({success: result});
+      output.writeMessageBegin("issueKeyChangeTokens", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_issueKeyChangeTokens_result(err);
+        output.writeMessageBegin("issueKeyChangeTokens", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueKeyChangeTokens", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.issueKeyChangeTokens(args.messageId, args.accessToken, args.meterConfig, args.newConfig, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_issueKeyChangeTokens_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("issueKeyChangeTokens", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueKeyChangeTokens", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_verifyToken = function(seqid, input, output) {
+  var args = new TokenApi_verifyToken_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.verifyToken.length === 4) {
+    Q.fcall(this._handler.verifyToken.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.meterConfig,
+      args.tokenDec
+    ).then(function(result) {
+      var result_obj = new TokenApi_verifyToken_result({success: result});
+      output.writeMessageBegin("verifyToken", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_verifyToken_result(err);
+        output.writeMessageBegin("verifyToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("verifyToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.verifyToken(args.messageId, args.accessToken, args.meterConfig, args.tokenDec, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_verifyToken_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("verifyToken", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("verifyToken", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_issueDitkChangeTokens = function(seqid, input, output) {
+  var args = new TokenApi_issueDitkChangeTokens_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.issueDitkChangeTokens.length === 3) {
+    Q.fcall(this._handler.issueDitkChangeTokens.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.meterConfig
+    ).then(function(result) {
+      var result_obj = new TokenApi_issueDitkChangeTokens_result({success: result});
+      output.writeMessageBegin("issueDitkChangeTokens", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_issueDitkChangeTokens_result(err);
+        output.writeMessageBegin("issueDitkChangeTokens", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueDitkChangeTokens", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.issueDitkChangeTokens(args.messageId, args.accessToken, args.meterConfig, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_issueDitkChangeTokens_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("issueDitkChangeTokens", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("issueDitkChangeTokens", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_fetchTokenResult = function(seqid, input, output) {
+  var args = new TokenApi_fetchTokenResult_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.fetchTokenResult.length === 3) {
+    Q.fcall(this._handler.fetchTokenResult.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.reqMessageId
+    ).then(function(result) {
+      var result_obj = new TokenApi_fetchTokenResult_result({success: result});
+      output.writeMessageBegin("fetchTokenResult", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_fetchTokenResult_result(err);
+        output.writeMessageBegin("fetchTokenResult", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("fetchTokenResult", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.fetchTokenResult(args.messageId, args.accessToken, args.reqMessageId, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_fetchTokenResult_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("fetchTokenResult", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("fetchTokenResult", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+TokenApiProcessor.prototype.process_ctsResetTidList = function(seqid, input, output) {
+  var args = new TokenApi_ctsResetTidList_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.ctsResetTidList.length === 3) {
+    Q.fcall(this._handler.ctsResetTidList.bind(this._handler),
+      args.messageId,
+      args.accessToken,
+      args.panPattern
+    ).then(function(result) {
+      var result_obj = new TokenApi_ctsResetTidList_result({success: result});
+      output.writeMessageBegin("ctsResetTidList", Thrift.MessageType.REPLY, seqid);
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }).catch(function (err) {
+      var result;
+      if (err instanceof ttypes.ApiException) {
+        result = new TokenApi_ctsResetTidList_result(err);
+        output.writeMessageBegin("ctsResetTidList", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("ctsResetTidList", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  } else {
+    this._handler.ctsResetTidList(args.messageId, args.accessToken, args.panPattern, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.ApiException) {
+        result_obj = new TokenApi_ctsResetTidList_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("ctsResetTidList", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("ctsResetTidList", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
 };
